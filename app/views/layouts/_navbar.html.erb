@@ -11,11 +11,38 @@
           <li class="nav-item ms-sm-2"><a href="#" class="nav-link text-white">コンテスト</a></li>
           <li class="nav-item"><a href="#" class="nav-link text-white">投稿作品</a></li>
         </ul>
-      
-        <ul class="navbar-nav">
-          <li class="nav-item"><%= link_to '新規登録', signup_path, class: 'nav-link text-white' %></li>
-          <li class="nav-item"><a href="#" class="nav-link text-white">ログイン</a></li>
-        </ul>
+        
+        <% if logged_in? %>
+        
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <div class="dropdown">
+                <a class="text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img class="rounded-circle img-fluid" src="<%= gravatar_url(current_user, { size: 40 }) %>" alt="">
+                  <img class="img-fluid" src="<%= image_path("caret-down-fill.svg") %>" alt="">
+                </a>
+                
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                  <li><%= link_to current_user.name, current_user, class: "dropdown-item fw-bold mb-2"%></li>
+                  <li><a class="dropdown-item" href="#">投稿作品</a></li>
+                  <li><a class="dropdown-item" href="#">コンテスト</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= link_to 'ログアウト', logout_path, method: :delete, class: 'dropdown-item' %></li>
+                </ul>
+                
+              </div>
+            </li>
+          </ul>
+          
+        <% else %>
+        
+          <ul class="navbar-nav">
+            <li class="nav-item"><%= link_to '新規登録', signup_path, class: 'nav-link text-white' %></li>
+            <li class="nav-item"><%= link_to 'ログイン', login_path, class: 'nav-link text-white' %></li>
+          </ul>
+          
+        <% end %>
+        
       </div>
     </div>
   </nav>

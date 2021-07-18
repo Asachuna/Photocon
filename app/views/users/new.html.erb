@@ -1,7 +1,9 @@
 <div class="row">
-    <div class="col-sm-10 col-9 bg-white border mx-auto pb-5 pt-3">
-        <h1 class="ps-2 pb-4">アカウントを作成</h1>
+    <div class="col-9 col-sm-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4 bg-white border mx-auto pb-5 pt-33">
+        
+        <h1 class="ps-2 pb-4 mt-3">アカウントを作成</h1>
         <%= render 'layouts/flash_messages' %>
+        
         <div class="row">
             <%= form_with(model: @user) do |f| %>
                 <%= render 'layouts/error_messages', model: f.object %>
