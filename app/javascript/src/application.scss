@@ -1,1 +1,24 @@
+$main:  #39c8ae;
+$accent:#ED6532;
+$white: #FBFBFB;
+$gray:  #F3F3F3;
+$main2:  #49d8c0;
+
+$theme-colors: (
+    "main":     $main,
+    "accent":   $accent,
+    "white":    $white,
+    "gray":     $gray,
+    "main2":    $main2
+);
+
+$font-family-sans-serif: "Yu Gothic", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+$font-family-serif:      "Yu Gothic", Georgia, "Times New Roman", Times, serif !default;
+$font-family-monospace:  "Yu Gothic", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-base:       $font-family-sans-serif !default;
+
+
+
+$min-contrast-ratio:   1 !default;
+
 @import '~bootstrap/scss/bootstrap';
