@@ -6,27 +6,28 @@
 </div>
 
 <div class="row mt-1">
-    <div class="col-3 offset-2 offset-lg-3">
-        <div class="ms-3">
-            <%= render 'layouts/user_icon', { user: @contest.user, size: 35 } %>
-            <span><%= link_to @contest.user.name, @contest.user, class: "text-decoration-none text-reset" %></span>
+        <div class="col-6 offset-1 col-lg-4 offset-lg-3">
+            <div class="ms-3">
+                <%= render 'layouts/user_icon', { user: @contest.user, size: 35 } %>
+                <span><%= link_to @contest.user.name, @contest.user, class: "text-decoration-none text-reset" %></span>
+                
+            </div>
         </div>
-    </div>
-    <div class="col-5 offset-1 mt-2">
-        <span class="mt-1 text-main"><%= get_end_day(@contest) %>まで</span>
-    </div>
+        <div class="col mt-2">
+            <span class="text-main"><%= get_end_day(@contest) %>まで</span>
+        </div>
 </div>
 
 <div class="row mt-3 pb-4 border-bottom">
     
     <% if current_user == @contest.user && contest_in_progress?(@contest) %>
-        <div class="col-6 offset-2 col-xl-4 offset-xl-3"><%= link_to "今すぐ参加", @contest, class: "btn btn-main btn-lg w-100 fw-bold" %></div>
-        <div class="col-2"><%= link_to "×", @contest, method: :delete, data: { confirm: "コンテストを削除してよろしいですか？" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
+        <div class="col-7 offset-1 col-sm-6 offset-sm-2 col-xl-4 offset-xl-3"><%= link_to "今すぐ参加", @contest, class: "btn btn-main btn-lg w-100 fw-bold" %></div>
+        <div class="col-sm-2 col-3"><%= link_to "×", @contest, method: :delete, data: { confirm: "コンテストを削除してよろしいですか？" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
     <% elsif current_user != @contest.user && contest_in_progress?(@contest) %>
         <div class="col-8 offset-2 col-xl-6 offset-xl-3"><%= link_to "今すぐ参加", @contest, class: "btn btn-main btn-lg w-100 fw-bold" %></div>
     <% elsif current_user == @contest.user %>
-        <div class="col-6 offset-2 col-xl-4 offset-xl-3"><%= link_to "受付終了", @contest, class: "btn btn-gray2 btn-lg w-100 fw-bold" %></div>
-        <div class="col-2"><%= link_to "×", @contest, method: :delete, data: { confirm: "コンテストを削除してよろしいですか？?" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
+        <div class="col-7 offset-1 col-sm-6 col-xl-4"><%= link_to "受付終了", @contest, class: "btn btn-gray2 btn-lg w-100 fw-bold" %></div>
+        <div class="col-sm-2 col-3"><%= link_to "×", @contest, method: :delete, data: { confirm: "コンテストを削除してよろしいですか？?" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
     <% elsif current_user != @contest.user %>
         <div class="col-8 offset-2 col-xl-6 offset-xl-3"><%= link_to "受付終了", @contest, class: "btn btn-gray2 btn-lg w-100 fw-bold" %></div>
     <% end %>

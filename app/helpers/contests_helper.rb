@@ -14,11 +14,9 @@ module ContestsHelper
         end_day = contest.created_at.days_since(contest.closing_day)
         
         #ここ最適化の余地あり
-        end_day = Time.new(end_day.year,end_day.month,end_day.day,24,00,00,"+09:00")
+        time_end = Time.new(end_day.year, end_day.month, end_day.day,24,00,00, "+09:00")
         time_now = Time.now.in_time_zone('Tokyo')
-        puts end_day
-        puts time_now
         
-        return time_now.before?(end_day)
+        return time_now.before?(time_end)
     end
 end

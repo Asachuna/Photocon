@@ -1,7 +1,7 @@
 <header class="mb-4">
   <nav class="navbar navbar-expand-sm navbar-dark bg-main2">
     <div class="container-fluid ps-5 pe-5">
-      <a class="navbar-brand" href="/">Photocon</a>
+      <%= link_to "Photocon", root_url, class: "navbar-brand" %>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -10,6 +10,7 @@
         <ul class="navbar-nav me-auto ms-sm-3">
           <li class="nav-item ms-sm-2"><a href="#" class="nav-link text-white">コンテスト</a></li>
           <li class="nav-item"><a href="#" class="nav-link text-white">投稿作品</a></li>
+          <li class="nav-item d-block d-md-none"><%= link_to "コンテストを新規作成", new_contest_path, class: "nav-link text-white" %></li>
         </ul>
         
         <% if logged_in? %>
@@ -24,8 +25,8 @@
                 
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
                   <li><%= link_to current_user.name, current_user, class: "dropdown-item fw-bold mb-2"%></li>
-                  <li><a class="dropdown-item" href="#">投稿作品</a></li>
-                  <li><a class="dropdown-item" href="#">コンテスト</a></li>
+                  <li><%= link_to "投稿作品", "#", class: "dropdown-item" %></li>
+                  <li><%= link_to "コンテスト", "#", class: "dropdown-item" %></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><%= link_to 'ログアウト', logout_path, method: :delete, class: 'dropdown-item' %></li>
                 </ul>

@@ -31,10 +31,10 @@ class ContestsController < ApplicationController
     @contest = current_user.contests.find_by(id: params[:id])
     if @contest
       @contest.destroy
-      flash[:success] = "コンテストを削除しました。"
+      flash[:main] = "コンテストを削除しました。"
       redirect_to contests_url
     else
-      redirect_to contests_url
+      redirect_to @contest
     end
   end
   

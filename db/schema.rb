@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_20_093747) do
+ActiveRecord::Schema.define(version: 2021_07_21_031732) do
 
   create_table "contests", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 2021_07_20_093747) do
     t.index ["user_id"], name: "index_contests_on_user_id"
   end
 
+  create_table "photos", charset: "utf8mb4", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "image"
+    t.bigint "user_id", null: false
+    t.bigint "contest_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contest_id"], name: "index_photos_on_contest_id"
+    t.index ["user_id"], name: "index_photos_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -31,4 +43,6 @@ ActiveRecord::Schema.define(version: 2021_07_20_093747) do
   end
 
   add_foreign_key "contests", "users"
+  add_foreign_key "photos", "contests"
+  add_foreign_key "photos", "users"
 end
