@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     
     SIDEBAR_CONTESTS_SHOW_AMOUNT = 5
+    SIDEBAR_COMMENTS_SHOW_AMOUNT = 10
     
     before_action :get_sidebar_contents
     
@@ -17,7 +18,12 @@ class ApplicationController < ActionController::Base
     end
     
     def get_sidebar_contents
-        @sidebar_contests = Contest.first(SIDEBAR_CONTESTS_SHOW_AMOUNT)
+        @sidebar_contests = Contest.order("id DESC").first(SIDEBAR_CONTESTS_SHOW_AMOUNT)
+        @sidebar_comments = UserPhotoComment.order("id DESC").first(SIDEBAR_COMMENTS_SHOW_AMOUNT)
+    end
+    
+    def correct_user?(model)
+        current_user == model.user
     end
     
 end

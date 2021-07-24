@@ -1,2 +1,3 @@
-<h1>Contests#index</h1>
-<p>Find me in app/views/contests/index.html.erb</p>
+<h1 class="ps-3 pb-4 mt-3">最近のコンテスト</h1>
+
+<%= render 'contests/contests_list', { contests: @contests} %>

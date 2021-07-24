@@ -1,0 +1,38 @@
+<!-- コメント -->
+<% if comments.any? %>
+
+    <ul class="mt-3 mb-3 border-top list-unstyled">
+        
+        <% comments.each do |comment| %>
+            <li>
+                <div class="pt-3 row">
+                    <div class="col-10 offset-1 border-bottom">
+                        <div>
+                            <%= render 'layouts/user_icon', { user: comment.user, size: 30 } %>
+                            <span class="mt-1"><%= link_to comment.user.name, comment.user, class: "text-decoration-none text-reset pe-5" %></span>
+                            <span class="text-muted"><%= get_commented_day(comment) %></span>
+                            <% if current_user == comment.user %>
+                                <%= link_to "削除", comment, method: :delete, data: { confirm: "コメントを削除してよろしいですか？" }, class: "badge bg-gray2 text-decoration-none" %>
+                            <% end %>
+                        </div>
+                        <div class="mx-1 mx-md-3 mx-xl-5 mt-2">
+                            <%= simple_format(comment.content) %>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <% end %>
+        
+    </ul>
+    
+    <div class="d-flex justify-content-center mt-5 mb-3">
+        <%== pagy_bootstrap_nav(@pagy) %>
+    </div>
+    
+<% else %>
+
+    <div class="border-top pt-5 mt-3 mb-5 text-center">
+        <span class="badge bg-gray2">まだコメントがありません</span>
+    </div>
+
+<% end %>

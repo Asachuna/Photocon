@@ -1,7 +1,7 @@
 class Contest < ApplicationRecord
   
   belongs_to :user
-  has_many :photos
+  has_many :photos, dependent: :destroy
   
   #コンテストの最大日数
   #開催中にも関わらず埋もれるコンテストを減らすのが目的。機能追加次第で延長を検討

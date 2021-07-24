@@ -8,13 +8,17 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    
+    <%= yield :head %>
+    
   </head>
 
   <body class="bg-gray">
   
     <%= render "layouts/navbar.html.erb" %>
     
-    <div class="container">
+    <div class="container mb-5">
       <div class="row">
         <div class="col-md-9 bg-white pb-3 pt-2">
           <%= render 'layouts/flash_messages' %>
@@ -25,8 +29,9 @@
           <%= render "layouts/sidebar.html.erb" %>
         </div>
       </div>
-  
-  
+    </div>
+    
+    <%= render "layouts/footer.html.erb" %>
 
   </body>
 </html>

@@ -9,7 +9,7 @@
     </div>
     
     <span class="fw-bold">最近のコンテスト</span>
-    <ul>
+    <ul class="list-unstyled ms-2">
         <% @sidebar_contests.each do |contest| %>
             <li class="list-unstyled mt-1">
                <%= link_to contest.name, contest, class: "text-decoration-none small" %> 
@@ -19,12 +19,13 @@
     
     <span class="fw-bold">最近のコメント</span>
     <div class="bg-white border">
-        <ul>
-            <li>こんにちは</li>
-            <li>こんにちは</li>
-            <li>こんにちは</li>
-            <li>こんにちは</li>
-            <li>こんにちは</li>
+        <ul class="list-unstyled m-1">
+            <% @sidebar_comments.each do |comment| %>
+                <li class="d-flex mb-2">
+                    <%= render 'layouts/user_icon', { user: comment.user, size: 30 } %>
+                    <span class="small mt-1"><%= link_to comment.content.truncate(27), comment.photo, class: "text-decoration-none" %></span>
+                </li>
+            <% end %>
         </ul>
     </div>
 </aside>

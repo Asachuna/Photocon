@@ -1,43 +1,47 @@
 <h1 class="mt-5 mb-4 text-center"><%= link_to @contest.name, @contest, class: "text-decoration-none text-main fw-bold" %></h1>
+
 <div class="row">
-    <div class="col-8 offset-2 col-xl-6 offset-xl-3">
-        <p><%= simple_format(@contest.description) %></p>
+    <div class="col-8 offset-2 col-xl-6 offset-xl-3 text-center">
+        <div class="text-start d-inline-block">
+            <%= simple_format(@contest.description) %>
+        </div>
     </div>
 </div>
 
-<div class="row mt-1">
-        <div class="col-6 offset-1 col-lg-4 offset-lg-3">
-            <div class="ms-3">
-                <%= render 'layouts/user_icon', { user: @contest.user, size: 35 } %>
-                <span><%= link_to @contest.user.name, @contest.user, class: "text-decoration-none text-reset" %></span>
-                
-            </div>
-        </div>
-        <div class="col mt-2">
-            <span class="text-main"><%= get_end_day(@contest) %>まで</span>
-        </div>
+
+<div class="d-flex justify-content-center mt-1">
+    <%= render 'layouts/user_icon', { user: @contest.user, size: 35 } %>
+    <span class="mt-1"><%= link_to @contest.user.name, @contest.user, class: "text-decoration-none text-reset pe-5" %></span>
+    
+    <span class="text-main ps-5 ms-5 mt-1"><%= get_end_day(@contest) %>まで</span>
 </div>
 
-<div class="row mt-3 pb-4 border-bottom">
+
+<div class="row mt-3 pb-5 border-bottom">
     
     <% if current_user == @contest.user && contest_in_progress?(@contest) %>
-        <div class="col-7 offset-1 col-sm-6 offset-sm-2 col-xl-4 offset-xl-3"><%= link_to "今すぐ参加", @contest, class: "btn btn-main btn-lg w-100 fw-bold" %></div>
+        <div class="col-7 offset-1 col-sm-6 offset-sm-2 col-xl-4 offset-xl-3"><%= link_to "今すぐ参加", post_contest_path(@contest), class: "btn btn-main btn-lg w-100 fw-bold" %></div>
         <div class="col-sm-2 col-3"><%= link_to "×", @contest, method: :delete, data: { confirm: "コンテストを削除してよろしいですか？" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
     <% elsif current_user != @contest.user && contest_in_progress?(@contest) %>
-        <div class="col-8 offset-2 col-xl-6 offset-xl-3"><%= link_to "今すぐ参加", @contest, class: "btn btn-main btn-lg w-100 fw-bold" %></div>
+        <div class="col-8 offset-2 col-xl-6 offset-xl-3"><%= link_to "今すぐ参加", post_contest_path(@contest), class: "btn btn-main btn-lg w-100 fw-bold" %></div>
     <% elsif current_user == @contest.user %>
-        <div class="col-7 offset-1 col-sm-6 col-xl-4"><%= link_to "受付終了", @contest, class: "btn btn-gray2 btn-lg w-100 fw-bold" %></div>
-        <div class="col-sm-2 col-3"><%= link_to "×", @contest, method: :delete, data: { confirm: "コンテストを削除してよろしいですか？?" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
+        <div class="col-7 offset-1 col-sm-6 offset-sm-2 col-xl-4 offset-xl-3"><%= link_to "受付終了", @contest, class: "btn btn-gray2 btn-lg w-100 fw-bold" %></div>
+        <div class="col-sm-2 col-3"><%= link_to "×", @contest, method: :delete, data: { confirm: "コンテストを削除してよろしいですか？" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
     <% elsif current_user != @contest.user %>
         <div class="col-8 offset-2 col-xl-6 offset-xl-3"><%= link_to "受付終了", @contest, class: "btn btn-gray2 btn-lg w-100 fw-bold" %></div>
     <% end %>
     
+    <% unless logged_in? %>
+        <span class="text-muted small text-center">コンテストに参加するには<%= link_to "ログイン", login_path %>が必要です</span>
+    <% end %>
 </div>
 
 <div class="mt-4">
-    ああああああ<br>
-    ああああああ<br>
-    ああああああ<br>
-    ああああああ<br>
-    ああああああ<br>
+    <% if contest_in_progress?(@contest) %>
+        <h3 class="ps-3 pb-4">最近の投稿写真</h3>
+        <%= render 'photos/photos_list', { photos: @photos} %>
+    <% else %>
+        <h3 class="ps-3 pb-4">コンテスト結果</h3>
+        <%= render 'contests/photos_ranking', { photos: @photos} %>
+    <% end %>
 </div>

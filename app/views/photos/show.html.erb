@@ -1,0 +1,74 @@
+<h1 class="mt-5 mb-4 text-center">
+    <% unless contest_in_progress?(@photo.contest) %>
+        <% if @rank == 1 %>
+            <%= render 'layouts/trophy', { size: 35, color: "gold" } %>
+        <% elsif @rank == 2 %>
+            <%= render 'layouts/trophy', { size: 35, color: "silver" } %>
+        <% elsif @rank == 3 %>
+            <%= render 'layouts/trophy', { size: 35, color: "#ac6b25" } %>
+        <% else %>
+            <%= link_to "終了", @photo.contest, class: "btn btn-sm text-white fw-bold rounded-pill bg-gray2 mb-1" %>
+        <% end %>
+        
+        
+        
+    <% end %>
+    <%= link_to @photo.contest.name, @photo.contest, class: "text-decoration-none text-main fw-bold" %>
+</h1>
+
+<!-- 画像表示 -->
+
+<div class="mx-sm-2 mx-1">
+        <%= link_to image_tag(@photo.image.url, class: "img-fluid rounded mx-auto d-block", :alt => @photo.title), @photo.image.url %>
+</div>
+
+
+<% unless @photo.title.empty? %>
+    <span class="small text-muted d-block text-center mt-1">「<%= @photo.title %>」</span>
+<% end %>
+
+<% unless @photo.description.empty? %>
+    <div class="col-8 offset-2 col-xl-6 offset-xl-3 text-center mt-3">
+        <div class="text-start d-inline-block">
+            <%= simple_format(@photo.description) %>
+        </div>
+    </div>
+<% end %>
+
+<div class="d-flex justify-content-center mt-1">
+    <%= render 'layouts/user_icon', { user: @photo.user, size: 35 } %>
+    <span class="mt-1"><%= link_to @photo.user.name, @photo.user, class: "text-decoration-none text-reset pe-5" %></span>
+    
+    <span class="text-main ps-5 ms-5 mt-1"><%= get_uploaded_day(@photo) %></span>
+</div>
+
+<%= render "photos/photo_show_like_button" %>
+
+<% if logged_in? %>
+
+    <div class="row mt-3">
+            
+        <%= form_with(model: @comment) do |f| %>
+            <%= f.hidden_field :photo_id, :value => f.object.photo_id %>
+            <%= f.hidden_field :user_id, :value => f.object.user_id %>
+            
+            <%= render 'layouts/error_messages', model: f.object %>
+            
+            <div class="offset-1 col-10">
+                
+                <div class="mb-2">
+                    <%= f.label :content, 'コメントを入力' %>
+                    <%= f.text_area :content, class: 'form-control', rows: "4" %>
+                </div>
+                
+                <div class="text-end">
+                    <%= f.submit '送信する', class: 'btn btn-main btn-lg fw_bold' %>
+                </div>
+            </div>
+        <% end %>
+            
+    </div>
+<% end %>
+
+<%= render 'photos/photo_show_comments', comments: @comments %>
+

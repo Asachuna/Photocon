@@ -1,0 +1,37 @@
+<div class="mb-3">
+    
+    <h1 class="ps-3 pb-4 mt-3">写真を投稿</h1>
+    
+    <div class="row">
+        <%= form_with(model: @photo) do |f| %>
+            <%= f.hidden_field :contest_id, :value => f.object.contest_id %>
+            <%= f.hidden_field :user_id, :value => f.object.user_id %>
+        
+            <%= render 'layouts/error_messages', model: f.object %>
+            
+            
+            <div class="col-sm-6 offset-sm-1 col-10 offset-1">
+                
+                <div class="mb-5">
+                    <div class="mb-1"><%= f.label :image, '写真のアップロード'%></div>
+                    <%= f.file_field :image, class: "form-control" %>
+                </div>
+                
+                <div class="mb-4">
+                    <%= f.label :title, '写真のタイトル(任意)' %>
+                    <%= f.text_field :title, class: 'form-control' %>
+                </div>
+        
+                <div class="mb-4">
+                    <%= f.label :description, '説明(任意)' %>
+                    <%= f.text_area :description, class: 'form-control', rows: "4" %>
+                </div>
+            </div>
+            
+            
+            <div class="col-10 offset-1">
+                <%= f.submit 'コンテストを作成する', class: 'btn btn-main btn-lg w-100 fw_bold' %>
+            </div>
+        <% end %>
+    </div>
+</div>

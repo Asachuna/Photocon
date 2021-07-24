@@ -11,7 +11,7 @@ module ContestsHelper
     #コンテストが進行中ならTrue、終了後ならFalse
     #終了日の24時00分以降ならコンテストが終了扱いとなる
     def contest_in_progress?(contest)
-        end_day = contest.created_at.days_since(contest.closing_day)
+        end_day = contest.created_at.days_since(contest.closing_day).in_time_zone('Tokyo')
         
         #ここ最適化の余地あり
         time_end = Time.new(end_day.year, end_day.month, end_day.day,24,00,00, "+09:00")

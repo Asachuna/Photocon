@@ -1,0 +1,75 @@
+<% if photos.any? %>
+    
+    <!-- masonry script -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+    <!-- imagesloaded script -->
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+    <div class="row mx-3 g-1" data-masonry='{"percentPosition": true }'>
+        <% photos.each do |photo| %>
+                <div class="col-12 col-sm-6 col-xl-4 mt-1">
+                    <div class="card p-1 pt-2">
+                        <h5 class="text-center"><%= link_to photo.contest.name, photo.contest, class: "text-decoration-none text-main fw-bold" %></h5>
+                        <div class="mx-3">
+                            <%= link_to image_tag(photo.image.url, class: "img-fluid rounded mx-auto d-block", :alt => photo.title), photo %>
+                        </div>
+                    
+                        <% unless photo.title.empty? %>
+                            <span class="small text-muted d-block text-center mt-1">「<%= photo.title %>」</span>
+                        <% end %>
+                        
+                        <% unless photo.description.empty? %>
+                            <div class="row mt-2">
+                                <div class="col-8 offset-2 small text-center">
+                                    <div class="text-start d-inline-block">
+                                        <%= simple_format(photo.description) %>
+                                    </div>
+                                </div>
+                            </div>
+                        <% end %>
+                        
+                        <div class="d-flex justify-content-center mt-2">
+                            <%= render 'layouts/user_icon', { user: photo.user, size: 25 } %>
+                            <span><%= link_to photo.user.name, photo.user, class: "small text-decoration-none text-reset" %></span>
+                            <span class="text-main small ms-5"><%= get_uploaded_day(photo) %></span>
+                        </div>
+                        
+                        <div class="row mt-2 mb-3">
+                            <div class="d-flex justify-content-center">
+                                <!--いいねボタン-->
+                                <%= render 'photos/photos_list_like_button', { photo: photo } %>
+                                <%= link_to "コメント　#{photo.commented_users.count}", photo, class: "btn btn-outline-main btn-sm" %>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+        <% end %>
+    </div>
+    
+    <div class="d-flex justify-content-center mt-5 mb-3">
+        <%== pagy_bootstrap_nav(@pagy) %>
+    </div>
+    
+    <script>
+        // init Masonry
+        var $grid = $('#grid').masonry({
+            percentPosition: true,
+            columnWidth: '.grid-sizer',
+            itemSelector: '.grid-item',
+            gutter: '.gutter-sizer'
+        });
+     
+        // layout Masonry after each image loads
+        $grid.imagesLoaded().progress(function () {
+            $grid.masonry('layout');
+        });
+    </script>
+    
+    
+<% else %>
+    <h5 class="text-center my-5 pb-3">
+        <span class="badge bg-gray2">まだ作品がありません</span>
+    </h5>
+<% end %>

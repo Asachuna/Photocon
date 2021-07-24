@@ -1,0 +1,68 @@
+<!-- いいねボタン -->
+
+<div class="mt-3 pb-4">
+    
+    
+    <% if logged_in? && contest_in_progress?(@photo.contest) %>
+    
+        <% if current_user.liked?(@photo) %>
+        
+            <%= form_with(model: current_user.user_photo_likes.find_by(photo_id: @photo.id), method: :delete) do |f| %>
+                
+                <div class="row justify-content-center">
+                
+                    <%= hidden_field_tag :photo_id, @photo.id %>
+                
+                    <% if current_user == @photo.user %>
+                        <div class="col-7 col-sm-6"><%= f.submit "いいね　#{@photo.liked_users.count}", class: "btn btn-main btn-lg w-100 fw-bold" %></div>
+                        <div class="col-3 col-sm-2"><%= link_to "×", @photo, method: :delete, data: { confirm: "投稿を削除してよろしいですか？" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
+                    <% else %>
+                        <div class="col-8 col-xl-6"><%= f.submit "いいね　#{@photo.liked_users.count}", class: "btn btn-main btn-lg w-100 fw-bold" %></div>
+                    <% end %>
+                
+                </div>
+                
+            <% end %>
+    
+        <% else %>
+        
+            <%= form_with(model: current_user.user_photo_likes.build) do |f| %>
+                
+                <div class="row justify-content-center">
+                
+                <%= hidden_field_tag :photo_id, @photo.id %>
+                
+                    <% if current_user == @photo.user %>
+                        <div class="col-7 col-sm-6"><%= f.submit "いいね　#{@photo.liked_users.count}", class: "btn btn-outline-main btn-lg w-100 fw-bold" %></div>
+                        <div class="col-3 col-sm-2"><%= link_to "×", @photo, method: :delete, data: { confirm: "投稿を削除してよろしいですか？" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
+                    <% else %>
+                        <div class="col-8 col-xl-6"><%= f.submit "いいね　#{@photo.liked_users.count}", class: "btn btn-outline-main btn-lg w-100 fw-bold" %></div>
+                    <% end %>
+                    
+                </div>
+                
+            <% end %>
+            
+        <% end %>
+    
+    <% else %>
+    
+        <div class="row justify-content-center">
+            
+            <% if current_user == @photo.user %>
+                <div class="col-7 col-sm-6"><%= link_to "いいね　#{@photo.liked_users.count}", @photo , class: "btn btn-gray btn-lg w-100 fw-bold text-main2" %></div>
+                <div class="col-3 col-sm-2"><%= link_to "×", @photo, method: :delete, data: { confirm: "投稿を削除してよろしいですか？" }, class: "btn btn-outline-accent btn-lg w-100 fw-bold" %></div>
+            <% else %>
+                <% if logged_in? %>
+                    <div class="col-8 col-xl-6"><%= link_to "いいね　#{@photo.liked_users.count}", @photo , class: "btn btn-gray btn-lg w-100 fw-bold text-main2" %></div>
+                <% else %>
+                    <div class="col-8 col-xl-6"><%= link_to "いいね　#{@photo.liked_users.count}", login_path , class: "btn btn-outline-main btn-lg w-100 fw-bold" %></div>
+                    <span class="text-muted small text-center">いいねするには<%= link_to "ログイン", login_path %>が必要です</span>
+                <% end %>
+            <% end %>
+            
+        </div>
+        
+    <% end %>
+    
+</div>

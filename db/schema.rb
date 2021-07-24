@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_21_031732) do
+ActiveRecord::Schema.define(version: 2021_07_23_085851) do
 
   create_table "contests", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -34,15 +34,39 @@ ActiveRecord::Schema.define(version: 2021_07_21_031732) do
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
+  create_table "user_photo_comments", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "photo_id", null: false
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["photo_id"], name: "index_user_photo_comments_on_photo_id"
+    t.index ["user_id"], name: "index_user_photo_comments_on_user_id"
+  end
+
+  create_table "user_photo_likes", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "photo_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["photo_id"], name: "index_user_photo_likes_on_photo_id"
+    t.index ["user_id"], name: "index_user_photo_likes_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "profile"
   end
 
   add_foreign_key "contests", "users"
   add_foreign_key "photos", "contests"
   add_foreign_key "photos", "users"
+  add_foreign_key "user_photo_comments", "photos"
+  add_foreign_key "user_photo_comments", "users"
+  add_foreign_key "user_photo_likes", "photos"
+  add_foreign_key "user_photo_likes", "users"
 end

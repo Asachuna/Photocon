@@ -1,0 +1,29 @@
+
+<% if logged_in? && contest_in_progress?(photo.contest) %>
+
+    <% if current_user.liked?(photo) %>
+    
+        <%= form_with(model: current_user.user_photo_likes.find_by(photo_id: photo.id), method: :delete) do |f| %>
+            <%= hidden_field_tag :photo_id, photo.id %>
+            <%= f.submit "いいね　#{photo.liked_users.count}", class: "btn btn-main btn-sm me-5 me-sm-3" %>
+        <% end %>
+
+    <% else %>
+    
+        <%= form_with(model: current_user.user_photo_likes.build) do |f| %>
+            <%= hidden_field_tag :photo_id, photo.id %>
+            <%= f.submit "いいね　#{photo.liked_users.count}", class: "btn btn-outline-main btn-sm me-5 me-sm-3" %>
+        <% end %>
+        
+    <% end %>
+
+<% else %>
+
+    <% if logged_in? %>
+        <span class="btn btn-gray text-main btn-sm me-5 me-sm-3 fw-bold">いいね　<%= photo.liked_users.count %></span>
+    <% else %>
+        <%= link_to "いいね　#{photo.liked_users.count}", login_path , class: "btn btn-outline-main btn-sm me-5 me-sm-3" %>
+    <% end %>
+    
+<% end %>
+    
