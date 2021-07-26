@@ -12,6 +12,7 @@ class UserPhotoCommentsController < ApplicationController
           else
             flash.now[:accent] = 'コメントの送信に失敗しました。'
             @photo = @comment.photo
+            @pagy, @comments = pagy(@photo.user_photo_comments.order(id: :desc), items: 25)
             render "photos/show", id: @comment.photo_id
           end
         else
