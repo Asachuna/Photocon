@@ -15,7 +15,7 @@
 <% end %>
 
 
-<h5 class="ms-md-5 ps-3 pb-4 mb-2 mt-3">最近の投稿写真</h5>
+<h5 class="ms-md-1 ps-3 pb-4 mb-2 mt-3">最近の投稿写真</h5>
 
 <%= render 'toppages/toppage_photos_list', { photos: @recent_photos} %>
 
@@ -25,15 +25,15 @@
     </div>
 </div>
 
-<h5 class="ms-md-5 ps-3 pb-4 mb-2 mt-3">最近いいねされた写真</h5>
+<h5 class="ms-md-1 ps-3 pb-4 mb-2 mt-3">最近いいねされた写真</h5>
 
 <%= render 'toppages/toppage_photos_list', { photos: @liked_photos} %>
 
 <div class="row mt-5">
-    <div class="col-10 offset-1 text-center py-3">
+    <div class="col-12 offset-0 col-sm-10 offset-sm-1 text-center py-3">
         <h4 class="text-main">コンテストの作成・投稿は無料です</h4>
         <h4 class="text-main">あなたも参加してみませんか？</h4>
-        <div class="d-flex justify-content-center mt-5">
+        <div class="d-flex justify-content-center mt-4">
             <%= link_to "新規写真を投稿", contests_path, class: "btn btn-main fw-bold" %>
             <%= link_to "コンテストを作成", new_contest_path, class: "btn btn-main ms-3 fw-bold" %>
         </div>
