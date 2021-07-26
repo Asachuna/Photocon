@@ -1,3 +1,23 @@
 <%= render 'users/user_profile_tabs', { user: @user} %>
 
-<h5 class="ps-3 pb-4 d-block d-md-none mb-2">プロフィール</h5>
+<h5 class="ms-md-5 ps-3 pb-4 mb-2">プロフィール</h5>
+
+<% if @user.profile? %>
+    
+    <div class="row">
+        <div class="col-10 offset-1 col-md-8 offset-2">
+            <%= simple_format(@user.profile) %>
+        </div>
+    </div>
+
+<% else %>
+    
+    <div class="text-center mb-3">
+        <span class="text-muted">まだプロフィールがありません。</span>
+        <% if current_user == @user %>
+            <br>
+            <span class="text-muted"><%= link_to "ここをクリックして自己紹介を追加しましょう！", edit_user_path(@user), class: "text-decoration-none" %></span>
+        <% end %>
+    </div>
+    
+<% end %>

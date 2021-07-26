@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_085851) do
+ActiveRecord::Schema.define(version: 2021_07_24_045237) do
 
   create_table "contests", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_085851) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "profile"
+    t.string "icon"
   end
 
   add_foreign_key "contests", "users"

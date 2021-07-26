@@ -14,6 +14,11 @@ class User < ApplicationRecord
     validates :email, presence: true, length: { maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
+                    
+    validates :profile, presence: false, length: { maximum: 2000 }
+    
+    mount_uploader :icon, UsericonUploader
+    
     
   def like(photo)
     self.user_photo_likes.find_or_create_by(photo_id: photo.id)

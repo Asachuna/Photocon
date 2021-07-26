@@ -4,14 +4,14 @@
     <% if current_user.liked?(photo) %>
     
         <%= form_with(model: current_user.user_photo_likes.find_by(photo_id: photo.id), method: :delete) do |f| %>
-            <%= hidden_field_tag :photo_id, photo.id %>
+            <%= hidden_field_tag :photo_id, photo.id, id: "photo_#{photo.id}" %>
             <%= f.submit "いいね　#{photo.liked_users.count}", class: "btn btn-main btn-sm me-5 me-sm-3" %>
         <% end %>
 
     <% else %>
     
         <%= form_with(model: current_user.user_photo_likes.build) do |f| %>
-            <%= hidden_field_tag :photo_id, photo.id %>
+            <%= hidden_field_tag :photo_id, photo.id, id: "photo_#{photo.id}" %>
             <%= f.submit "いいね　#{photo.liked_users.count}", class: "btn btn-outline-main btn-sm me-5 me-sm-3" %>
         <% end %>
         

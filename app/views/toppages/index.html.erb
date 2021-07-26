@@ -1,4 +1,41 @@
-<h1>Toppages#index</h1>
-<p>Find me in app/views/toppages/index.html.erb</p>
-<div class="btn btn-main">今すぐ参加</div>
-<div class="btn btn-accent">今すぐ参加</div>
+<h1 class="text-center mt-3 pb-4 fw-bold text-main border-bottom">Photoconへようこそ</h1>
+
+<% unless logged_in? %>
+    <div class="row mt-3 pb-3 border-bottom">
+        <div class="col-10 offset-1 card text-center py-3">
+            <h3 class="fw-bold text-main">Photoconとは？</h3>
+            <span>フォトコンテストを自由に開催し、参加することができるサイトです</span>
+            <span>ログインしてコンテストに参加しよう</span>
+            <div class="d-flex justify-content-center mt-3">
+                <%= link_to "新規登録", signup_path, class: "btn btn-main btn-lg fw-bold" %>
+                <%= link_to "ログイン", login_path, class: "btn btn-main ms-3 btn-lg fw-bold" %>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+
+<h5 class="ms-md-5 ps-3 pb-4 mb-2 mt-3">最近の投稿写真</h5>
+
+<%= render 'toppages/toppage_photos_list', { photos: @recent_photos} %>
+
+<div class="row mb-5 mt-3 border-bottom pb-5">
+    <div class="col-12 offset-0 col-md-10 offset-md-1">
+        <%= link_to "もっとみる", photos_path, class: "btn btn-lg btn-main fw-bold w-100" %>
+    </div>
+</div>
+
+<h5 class="ms-md-5 ps-3 pb-4 mb-2 mt-3">最近いいねされた写真</h5>
+
+<%= render 'toppages/toppage_photos_list', { photos: @liked_photos} %>
+
+<div class="row mt-5">
+    <div class="col-10 offset-1 text-center py-3">
+        <h4 class="text-main">コンテストの作成・投稿は無料です</h4>
+        <h4 class="text-main">あなたも参加してみませんか？</h4>
+        <div class="d-flex justify-content-center mt-5">
+            <%= link_to "新規写真を投稿", contests_path, class: "btn btn-main fw-bold" %>
+            <%= link_to "コンテストを作成", new_contest_path, class: "btn btn-main ms-3 fw-bold" %>
+        </div>
+    </div>
+</div>
