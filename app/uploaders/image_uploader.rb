@@ -2,6 +2,17 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # リサイズしたり画像形式を変更するのに必要
   include CarrierWave::RMagick
+  
+  #cloudinary設定
+  if Rails.env.production?
+    include Cloudinary::CarrierWave
+    CarrierWave.configure do |config|
+      config.cache_storage = :file
+    end
+  else
+    storage :file
+  end
+  
 
   # 画像の上限を640x480にする
   process :resize_to_limit => [640, 480]

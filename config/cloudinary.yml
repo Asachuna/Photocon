@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dsrxsmoqv
+  api_key: '778919822991315'
+  api_secret: 8hC5yhHX4n0xE0Zxhh5SiDiHHGY
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: dsrxsmoqv
+  api_key: '778919822991315'
+  api_secret: 8hC5yhHX4n0xE0Zxhh5SiDiHHGY
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: dsrxsmoqv
+  api_key: '778919822991315'
+  api_secret: 8hC5yhHX4n0xE0Zxhh5SiDiHHGY
+  enhance_image_tag: true
+  static_file_support: false
