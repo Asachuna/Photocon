@@ -1,15 +1,15 @@
 <% if photos.any? %>
     <div class="row mx-3">
-        <% photos.each.with_index do |photo, rank| %>
+        <% photos.each.with_index do |photo, i| %>
                 
                 <div class="col-12 col-md-8 offset-md-2 mt-1">
                     <h4 class="mt-2">
-                        <%= rank+1 %>位
-                        <% if rank == 0 %>
+                        <%= rank = (i+1) + (@pagy.page - 1)* @ranking_photos_per_page %>位
+                        <% if rank == 1 %>
                             <%= render 'layouts/trophy', { size: 28, color: "gold" } %>
-                        <% elsif rank == 1 %>
-                            <%= render 'layouts/trophy', { size: 25, color: "silver" } %>
                         <% elsif rank == 2 %>
+                            <%= render 'layouts/trophy', { size: 25, color: "silver" } %>
+                        <% elsif rank == 3 %>
                             <%= render 'layouts/trophy', { size: 25, color: "#ac6b25" } %>
                         <% end %>
                     </h4>

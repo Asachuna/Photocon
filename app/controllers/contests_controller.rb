@@ -35,9 +35,10 @@ class ContestsController < ApplicationController
     if contest_in_progress?(@contest)
       @pagy, @photos = pagy(@contest.photos.order(id: :desc), items: 20)
     else
-      #写真のランクを取得したい際はこれと同様の計算を毎回行っているが、非効率なので余裕があればphotosにrankカラムを追加するなどして対応
+      #写真のランクを取得したい際はこれと同様の処理を毎回行っているが、非効率なので余裕があればphotosにrankカラムを追加するなどして対応
+      @ranking_photos_per_page = 15
       photos =  @contest.photos.sort { |a, b| b.count_likes <=> a.count_likes }
-      @pagy, @photos = pagy_array(photos, items: 20)
+      @pagy, @photos = pagy_array(photos, items: @ranking_photos_per_page)
     end
   end
 

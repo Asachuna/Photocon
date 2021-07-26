@@ -49,17 +49,15 @@
     </div>
     
     <script>
-        // init Masonry
-        var $grid = $('#grid').masonry({
-            percentPosition: true,
-            columnWidth: '.grid-sizer',
-            itemSelector: '.grid-item',
-            gutter: '.gutter-sizer'
+        $(function(){
+        var $container = $('#masonry');
+        $container.imagesLoaded(function(){
+        	$container.masonry({
+        		itemSelector: '.item',
+        		isFitWidth: true,
+        		isAnimated: true
+        	});
         });
-     
-        // layout Masonry after each image loads
-        $grid.imagesLoaded().progress(function () {
-            $grid.masonry('layout');
         });
     </script>
     
